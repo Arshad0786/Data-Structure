@@ -10,6 +10,9 @@ class Linked_List:
         self.tail = None
 
     def OutputList(self):
+        """
+        return the whole linked list as an array
+        """
         if self.length() == 0:
             return []
         a = []
@@ -90,6 +93,10 @@ class Linked_List:
     def PopTail(self):
         if self.length() == 0:
             return
+        if self.length() == 1:
+            output = self.head.val
+            self.head = None
+            return output
         # store the value of popped node first, cus we will cut it loose later
         output = self.tail.val
         tracer = self.head
@@ -151,3 +158,27 @@ class Linked_List:
         if self.length() == 0:
             return
         return self.tail.val
+
+temp = Linked_List()
+temp.AddTail(10)
+temp.AddTail(20)
+print(temp.OutputList())
+print("------------------")
+temp.PopTail()
+temp.PopTail()
+temp.AddTail(10)
+temp.AddTail(20)
+temp.AddTail(30)
+print(temp.OutputList())
+print("------------------")
+a = Linked_List()
+a.AddTail(10)
+a.AddHead(5)
+a.AddTail(20)
+a.PopHead()
+a.PopHead()
+
+print(a.OutputList())
+print("Head:",a.head.val)
+print("Tail:",a.tail.val)
+
