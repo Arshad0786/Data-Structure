@@ -3,6 +3,7 @@ class ListNode:
         self.val = val
         self.next = next
 
+
 class Linked_List:
     def __init__(self):
         self.head = None
@@ -29,12 +30,13 @@ class Linked_List:
 
     def AddTail(self, value):
         node = ListNode(value)
-        if self.head == None:
+        if self.count == 0:
             self.head = node
+            self.tail = node
             self.count = self.count + 1
             return
 
-        if self.tail == None:
+        if self.count == 1:
             self.tail = node
             self.head.next = self.tail
             self.count = self.count + 1
@@ -46,13 +48,13 @@ class Linked_List:
 
     def AddHead(self, value):
         node = ListNode(value)
-        if self.head == None:
+        if self.count == 0:
             self.head = node
+            self.tail = node
             self.count = self.count + 1
             return
 
-        if self.tail == None:
-            self.tail = self.head
+        if self.count == 1:
             self.head = node
             self.head.next = self.tail
             self.count = self.count + 1
@@ -61,8 +63,6 @@ class Linked_List:
         node.next = self.head
         self.head = node
         self.count = self.count + 1
-
-
 
     def AddPos(self, pos, value):
         # Adding a node into certain position
@@ -149,6 +149,16 @@ class Linked_List:
         self.tail = None
         self.count = 0
 
+    def getHead(self):
+        if self.count == 0:
+            return
+        return self.head.val
+
+    def getTail(self):
+        if self.count == 0:
+            return
+        return self.tail.val
+
     def getPos(self, pos):
         # return value of node in certain position
         if self.count == 0:
@@ -160,13 +170,3 @@ class Linked_List:
             tracer = tracer.next
             pos = pos - 1
         return tracer.val
-
-    def getHead(self):
-        if self.count == 0:
-            return
-        return self.head.val
-
-    def getTail(self):
-        if self.count == 0:
-            return
-        return self.tail.val

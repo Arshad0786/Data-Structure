@@ -38,6 +38,23 @@ class LinkedListTest(unittest.TestCase):
         temp.AddPos(30, 400)
         temp.AddPos(35, 450)
         self.assertEqual(temp.OutputList(), result)
+        temp.clear()
+        # --------------------------------------------------
+        # Pos is head test
+        result = []
+        for i in range(10):
+            temp.AddPos(0, i*10)
+            result.append(i*10)
+        self.assertEqual(temp.OutputList(), result[::-1])
+        temp.clear()
+        # --------------------------------------------------
+        # Pos is tail test
+        result = []
+        for i in range(5):
+            temp.AddPos(i, i*10)
+            result.append(i*10)
+        self.assertEqual(temp.OutputList(), result)
+        temp.clear()
 
     def test_PopTail(self):
         temp = Linked_List()
@@ -94,7 +111,113 @@ class LinkedListTest(unittest.TestCase):
         temp.RemovePos(4)
         result = [0, 1, 2, 4, 6, 7, 9]
         self.assertEqual(temp.OutputList(), result)
+        # --------------------------------------------------
+        # Position Out of bound test
+        temp.RemovePos(20)
+        temp.RemovePos(30)
+        temp.RemovePos(40)
+        temp.RemovePos(50)
+        temp.RemovePos(100)
+        self.assertEqual(temp.OutputList(), result)
 
+    def test_clear(self):
+        temp = Linked_List()
+        for i in range(100):
+            temp.AddTail(i)
+        self.assertEqual(temp.OutputList(), list(range(100)))
+        temp.clear()
+        self.assertEqual(temp.OutputList(), [])
+        # -----------------------------------------------
+        # clear empty list test
+        temp.clear()
+        self.assertEqual(temp.OutputList(), [])
+        # -----------------------------------------------
+        # Make sure clear() properly reset the list
+        temp.AddHead(10)
+        temp.AddHead(10)
+        temp.AddHead(10)
+        self.assertEqual(temp.OutputList(), [10, 10, 10])
+
+    def test_getHead(self):
+        temp = Linked_List()
+        for i in range(100):
+            temp.AddHead(i)
+        self.assertEqual(temp.getHead(), 99)
+        # -----------------------------------------------
+        # Get head of empty list
+        temp.clear()
+        self.assertEqual(temp.OutputList(), [])
+        self.assertEqual(temp.getHead(), None)
+        # -----------------------------------------------
+        # Get head of one node list
+        temp.clear()
+        temp.AddTail(10)
+        self.assertEqual(temp.OutputList(), [10])
+        self.assertEqual(temp.getHead(), 10)
+        # -----------------------------------------------
+        # Get head of two nodes list
+        temp.clear()
+        temp.AddTail(10)
+        temp.AddTail(20)
+        self.assertEqual(temp.OutputList(), [10, 20])
+        self.assertEqual(temp.getHead(), 10)
+
+    def test_getTail(self):
+        temp = Linked_List()
+        for i in range(100):
+            temp.AddHead(i)
+        self.assertEqual(temp.getTail(), 0)
+        # -----------------------------------------------
+        # Get tail of empty list
+        temp.clear()
+        self.assertEqual(temp.OutputList(), [])
+        self.assertEqual(temp.getTail(), None)
+        # -----------------------------------------------
+        # Get tail of one node list
+        temp.clear()
+        temp.AddTail(10)
+        self.assertEqual(temp.OutputList(), [10])
+        self.assertEqual(temp.getTail(), 10)
+        # -----------------------------------------------
+        # Get tail of two nodes list
+        temp.clear()
+        temp.AddTail(10)
+        temp.AddTail(20)
+        self.assertEqual(temp.OutputList(), [10, 20])
+        self.assertEqual(temp.getTail(), 20)
+
+    def test_getPos(self):
+        temp = Linked_List()
+        for i in range(100):
+            temp.AddPos(i, i)
+        self.assertEqual(temp.OutputList(), list(range(100)))
+        for i in range(100):
+            self.assertEqual(temp.getPos(i), i)
+        # ---------------------------------
+        # get Pos from one node list
+        temp.clear()
+        temp.AddPos(0, 10)
+        self.assertEqual(temp.OutputList(), [10])
+        self.assertEqual(temp.getPos(0), 10)
+        # ---------------------------------
+        # get Pos from two nods list
+        temp.clear()
+        temp.AddPos(0, 10)
+        temp.AddPos(1, 20)
+        self.assertEqual(temp.OutputList(), [10, 20])
+        self.assertEqual(temp.getPos(0), 10)
+        self.assertEqual(temp.getPos(1), 20)
+        # ---------------------------------
+        # get Pos from empty list
+        temp.clear()
+        self.assertEqual(temp.getPos(0), None)
+        # ---------------------------------
+        # Position Out of bound test
+        temp.clear()
+        for i in range(10):
+            temp.AddHead(i)
+        for i in range(10, 100):
+            self.assertEqual(temp.getPos(i), None)
 
 
 if __name__ == "__main__":
