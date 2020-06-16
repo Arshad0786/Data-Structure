@@ -16,13 +16,13 @@ class Linked_List:
         """
         if self.count == 0:
             return []
-        a = []
+        output = []
         tracer = self.head
         while tracer.next != None:
-            a.append(tracer.val)
+            output.append(tracer.val)
             tracer = tracer.next
-        a.append(tracer.val)
-        return a
+        output.append(tracer.val)
+        return output
 
     def length(self):
         # return the length of the Linked List
