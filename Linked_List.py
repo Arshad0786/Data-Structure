@@ -3,17 +3,17 @@ class ListNode:
         self.val = val
         self.next = next
 
-
 class Linked_List:
     def __init__(self):
         self.head = None
         self.tail = None
+        self.count = 0
 
     def OutputList(self):
         """
         return the whole linked list as an array
         """
-        if self.length() == 0:
+        if self.count == 0:
             return []
         a = []
         tracer = self.head
@@ -25,60 +25,59 @@ class Linked_List:
 
     def length(self):
         # return the length of the Linked List
-        count = 0
-        if self.head == None:
-            return count
-
-        tracer = self.head
-        count = count + 1
-        while(tracer.next != None):
-            tracer = tracer.next
-            count = count + 1
-        return count
+        return self.count
 
     def AddTail(self, value):
         node = ListNode(value)
         if self.head == None:
             self.head = node
+            self.count = self.count + 1
             return
 
         if self.tail == None:
             self.tail = node
             self.head.next = self.tail
+            self.count = self.count + 1
             return
 
         self.tail.next = node
         self.tail = self.tail.next
+        self.count = self.count + 1
 
     def AddHead(self, value):
         node = ListNode(value)
         if self.head == None:
             self.head = node
+            self.count = self.count + 1
             return
 
         if self.tail == None:
             self.tail = self.head
             self.head = node
             self.head.next = self.tail
+            self.count = self.count + 1
             return
 
         node.next = self.head
         self.head = node
+        self.count = self.count + 1
+
+
 
     def AddPos(self, pos, value):
         # Adding a node into certain position
-        if self.length() == 0:
+        if self.count == 0:
             if pos == 0:
                 self.AddHead(value)
                 return
             else:
                 return
-        if pos > self.length():
+        if pos > self.count:
             return
         if pos == 0:
             self.AddHead(value)
             return
-        if pos == self.length():
+        if pos == self.count:
             self.AddTail(value)
             return
 
@@ -89,13 +88,16 @@ class Linked_List:
             pos = pos - 1
         node.next = tracer.next
         tracer.next = node
+        self.count = self.count + 1
 
     def PopTail(self):
-        if self.length() == 0:
+        if self.count == 0:
             return
-        if self.length() == 1:
+        if self.count == 1:
             output = self.head.val
             self.head = None
+            self.tail = None
+            self.count = self.count - 1
             return output
         # store the value of popped node first, cus we will cut it loose later
         output = self.tail.val
@@ -104,26 +106,34 @@ class Linked_List:
             tracer = tracer.next
         self.tail = tracer
         self.tail.next = None
+        self.count = self.count - 1
         return output
 
     def PopHead(self):
-        if self.length() == 0:
+        if self.count == 0:
             return
+        if self.count == 1:
+            output = self.head.val
+            self.head = None
+            self.tail = None
+            self.count = self.count - 1
+            return output
         # store the value of popped node first, cus we will cut it loose later
         output = self.head.val
         self.head = self.head.next
+        self.count = self.count - 1
         return output
 
     def RemovePos(self, pos):
         # remove a node in certain position
-        if self.length() == 0:
+        if self.count == 0:
             return
-        if pos >= self.length():
+        if pos >= self.count:
             return
         if pos == 0:
             self.PopHead()
             return
-        if pos == self.length() - 1:
+        if pos == self.count - 1:
             self.PopTail()
             return
         tracer = self.head
@@ -131,17 +141,19 @@ class Linked_List:
             tracer = tracer.next
             pos = pos - 1
         tracer.next = tracer.next.next
+        self.count = self.count - 1
         return
 
     def clear(self):
         self.head = None
         self.tail = None
+        self.count = 0
 
     def getPos(self, pos):
         # return value of node in certain position
-        if self.length() == 0:
+        if self.count == 0:
             return
-        if pos > self.length() - 1:
+        if pos > self.count - 1:
             return
         tracer = self.head
         while(pos > 0):
@@ -150,35 +162,11 @@ class Linked_List:
         return tracer.val
 
     def getHead(self):
-        if self.length() == 0:
+        if self.count == 0:
             return
         return self.head.val
 
     def getTail(self):
-        if self.length() == 0:
+        if self.count == 0:
             return
         return self.tail.val
-
-temp = Linked_List()
-temp.AddTail(10)
-temp.AddTail(20)
-print(temp.OutputList())
-print("------------------")
-temp.PopTail()
-temp.PopTail()
-temp.AddTail(10)
-temp.AddTail(20)
-temp.AddTail(30)
-print(temp.OutputList())
-print("------------------")
-a = Linked_List()
-a.AddTail(10)
-a.AddHead(5)
-a.AddTail(20)
-a.PopHead()
-a.PopHead()
-
-print(a.OutputList())
-print("Head:",a.head.val)
-print("Tail:",a.tail.val)
-
