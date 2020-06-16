@@ -1,5 +1,5 @@
 class ListNode:
-    def __init__(self, val, next=None):
+    def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
@@ -7,34 +7,25 @@ class ListNode:
 class Queue:
     def __init__(self):
         self.head = None
+        self.tail = None
         self.count = 0
 
     def outputQueue(self):
-        a = []
+        output = []
         if self.count == 0:
-            return a
+            return output
         tracer = self.head
         while tracer.next != None:
-            a.append(tracer.val)
+            output.append(tracer.val)
             tracer = tracer.next
-        a.append(tracer.val)
-        return a
-
-    def length(self):
-        if self.head == None:
-            return 0
-        count = 0
-        tracer = self.head
-        while tracer.next != None:
-            count = count + 1
-            tracer = tracer.next
-        count = count + 1
-        return count
+        output.append(tracer.val)
+        return output
 
     def push(self, val):
         node = ListNode(val)
         if self.count == 0:
             self.head = node
+            self.tail = node
             self.count = self.count + 1
             return
         node.next = self.head
@@ -49,35 +40,19 @@ class Queue:
         if self.count == 1:
             output = self.head.val
             self.head = None
+            self.tail = None
             self.count = self.count - 1
             return output
-        if self.count == 2:
-            output = self.head.next.val
-            self.head.next = None
-            return output
+        output = self.tail.val
         tracer = self.head
-        while tracer.next.next != None:
+        while(tracer.next != self.tail):
             tracer = tracer.next
-        output = tracer.next.val
-        tracer.next = None
+        self.tail = tracer
+        self.tail.next = None
         self.count = self.count - 1
         return output
 
-"""
-a = Queue()
-a.push(10)
-a.push(20)
-a.push(30)
-a.push(40)
-a.push(50)
-print(a.count)
-print(a.outputQueue())
-print("---------------------")
-print(a.Pop())
-print(a.Pop())
-print(a.Pop())
-print(a.Pop())
-print(a.Pop())
-print(a.count)
-print(a.outputQueue())
-"""
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.count = 0

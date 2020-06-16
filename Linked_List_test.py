@@ -63,7 +63,7 @@ class LinkedListTest(unittest.TestCase):
         PopOutput = []
         for i in range(5):
             PopOutput.append(temp.PopTail())
-        result = [0, 1, 2, 3, 4]
+        result = list(range(5))
         self.assertEqual(PopOutput, result)
         # ----------------------------------------------------
         # Make Sure the list will be empty when all nodes are popped
