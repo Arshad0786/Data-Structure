@@ -1,24 +1,26 @@
 import unittest
-from Linked_List import ListNode, Linked_List
+from Double_Linked_List import ListNode, Double_Linked_List
 
 
-class LinkedListTest(unittest.TestCase):
+class DoubleLinkedListTest(unittest.TestCase):
     def test_AddTail(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(100):
             temp.AddTail(i)
         result = list(range(100))
         self.assertEqual(temp.OutputList(), result)
+        self.assertEqual(temp.reverseOutputList(), result[::-1])
 
     def test_AddHead(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(100):
             temp.AddHead(i)
         result = list(range(100))[::-1]
         self.assertEqual(temp.OutputList(), result)
-
+        self.assertEqual(temp.reverseOutputList(), result[::-1])
+    
     def test_AddPos(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         temp.AddTail(10)
         temp.AddTail(20)
         temp.AddTail(30)
@@ -29,6 +31,7 @@ class LinkedListTest(unittest.TestCase):
         temp.AddPos(3, 25)  # middle
         result = [5, 10, 20, 25, 30, 40, 50, 100]
         self.assertEqual(temp.OutputList(), result)
+        self.assertEqual(temp.reverseOutputList(), result[::-1])
         # --------------------------------------------------
         # Position Out of bound test
         temp.AddPos(10, 200)
@@ -38,6 +41,7 @@ class LinkedListTest(unittest.TestCase):
         temp.AddPos(30, 400)
         temp.AddPos(35, 450)
         self.assertEqual(temp.OutputList(), result)
+        self.assertEqual(temp.reverseOutputList(), result[::-1])
         temp.clear()
         # --------------------------------------------------
         # Pos is head test
@@ -46,6 +50,7 @@ class LinkedListTest(unittest.TestCase):
             temp.AddPos(0, i*10)
             result.append(i*10)
         self.assertEqual(temp.OutputList(), result[::-1])
+        self.assertEqual(temp.reverseOutputList(), result)
         temp.clear()
         # --------------------------------------------------
         # Pos is tail test
@@ -54,10 +59,12 @@ class LinkedListTest(unittest.TestCase):
             temp.AddPos(i, i*10)
             result.append(i*10)
         self.assertEqual(temp.OutputList(), result)
+        self.assertEqual(temp.reverseOutputList(), result[::-1])
         temp.clear()
     
+
     def test_PopTail(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(10):
             temp.AddHead(i)
         PopOutput = []
@@ -68,10 +75,9 @@ class LinkedListTest(unittest.TestCase):
         # ----------------------------------------------------
         # Make Sure the list will be empty when all nodes are popped
         self.assertEqual(temp.OutputList(), [])
-    
 
     def test_PopHead(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(10):
             temp.AddTail(i)
         PopOutput = []
@@ -82,9 +88,9 @@ class LinkedListTest(unittest.TestCase):
         # ----------------------------------------------------
         # Make Sure the list will be empty when all nodes are popped
         self.assertEqual(temp.OutputList(), [])
-
+    """
     def test_RemovePos(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
 
         # All remove head
         for i in range(10):
@@ -120,9 +126,9 @@ class LinkedListTest(unittest.TestCase):
         temp.RemovePos(50)
         temp.RemovePos(100)
         self.assertEqual(temp.OutputList(), result)
-
+    """
     def test_clear(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(100):
             temp.AddTail(i)
         self.assertEqual(temp.OutputList(), list(range(100)))
@@ -135,12 +141,14 @@ class LinkedListTest(unittest.TestCase):
         # -----------------------------------------------
         # Make sure clear() properly reset the list
         temp.AddHead(10)
-        temp.AddHead(10)
-        temp.AddHead(10)
-        self.assertEqual(temp.OutputList(), [10, 10, 10])
-
+        temp.AddHead(20)
+        temp.AddHead(30)
+        result = [10,20,30]
+        self.assertEqual(temp.OutputList(), result)
+        self.assertEqual(temp.reverseOutputList(), result[::-1])
+    """
     def test_getHead(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(100):
             temp.AddHead(i)
         self.assertEqual(temp.getHead(), 99)
@@ -164,7 +172,7 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(temp.getHead(), 10)
 
     def test_getTail(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(100):
             temp.AddHead(i)
         self.assertEqual(temp.getTail(), 0)
@@ -188,7 +196,7 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(temp.getTail(), 20)
 
     def test_getPos(self):
-        temp = Linked_List()
+        temp = Double_Linked_List()
         for i in range(100):
             temp.AddPos(i, i)
         self.assertEqual(temp.OutputList(), list(range(100)))
@@ -219,7 +227,7 @@ class LinkedListTest(unittest.TestCase):
             temp.AddHead(i)
         for i in range(10, 100):
             self.assertEqual(temp.getPos(i), None)
-
+    """
 
 if __name__ == "__main__":
     unittest.main()

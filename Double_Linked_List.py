@@ -1,74 +1,82 @@
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0, next=None, prev=None):
         self.val = val
         self.next = next
+        self.prev = prev
 
 
-class Linked_List:
+class Double_Linked_List():
     def __init__(self):
         self.head = None
         self.tail = None
         self.count = 0
 
     def OutputList(self):
-        """
-        return the whole linked list as an array
-        """
         if self.count == 0:
             return []
         output = []
         tracer = self.head
-        while tracer.next != None:
+        while(tracer.next != None):
             output.append(tracer.val)
             tracer = tracer.next
         output.append(tracer.val)
         return output
 
-    def length(self):
-        # return the length of the Linked List
-        return self.count
+    def reverseOutputList(self):
+        if self.count == 0:
+            return []
+        output = []
+        tracer = self.tail
+        while(tracer.prev != None):
+            output.append(tracer.val)
+            tracer = tracer.prev
+        output.append(tracer.val)
+        return output
 
-    def AddTail(self, value):
-        node = ListNode(value)
+    def AddTail(self, val):
+        node = ListNode(val)
         if self.count == 0:
             self.head = node
             self.tail = node
             self.count = self.count + 1
             return
-
         self.tail.next = node
-        self.tail = self.tail.next
+        node.prev = self.tail
+        self.tail = node
         self.count = self.count + 1
 
-    def AddHead(self, value):
-        node = ListNode(value)
+    def AddHead(self, val):
+        node = ListNode(val)
         if self.count == 0:
             self.head = node
             self.tail = node
             self.count = self.count + 1
             return
-
         node.next = self.head
+        self.head.prev = node
         self.head = node
         self.count = self.count + 1
 
-    def AddPos(self, pos, value):
-        # Adding a node into certain position
-        node = ListNode(value)
+    def AddPos(self, pos, val):
+        node = ListNode(val)
         if pos > self.count:
             return
-        if pos == 0:
-            self.AddHead(value)
-            return
         if pos == self.count:
-            self.AddTail(value)
+            self.AddTail(val)
+            return
+        if pos == 0:
+            self.AddHead(val)
             return
         tracer = self.head
-        while(pos > 1):  # Move tracer to next pos - 1 times, so it points toward the node beforce target
+        while(pos > 1):  # move tracer pos - 1 times
             tracer = tracer.next
             pos = pos - 1
-        node.next = tracer.next
-        tracer.next = node
+        before = tracer
+        after = tracer.next
+        before.next = node #link between inserted node and previous node
+        node.prev = before
+        node.next = after #link between inserted node and next node
+        after.prev = before
         self.count = self.count + 1
 
     def PopTail(self):
@@ -80,12 +88,8 @@ class Linked_List:
             self.tail = None
             self.count = self.count - 1
             return output
-        # store the value of popped node first, cus we will cut it loose later
         output = self.tail.val
-        tracer = self.head
-        while(tracer.next != self.tail):
-            tracer = tracer.next
-        self.tail = tracer
+        self.tail = self.tail.prev
         self.tail.next = None
         self.count = self.count - 1
         return output
@@ -99,55 +103,34 @@ class Linked_List:
             self.tail = None
             self.count = self.count - 1
             return output
-        # store the value of popped node first, cus we will cut it loose later
         output = self.head.val
         self.head = self.head.next
+        self.head.prev = None
         self.count = self.count - 1
         return output
 
     def RemovePos(self, pos):
-        # remove a node in certain position
-        if self.count == 0:
+        if pos > self.count:
             return
-        if pos >= self.count:
+        if pos == self.count:
+            self.PopTail()
             return
         if pos == 0:
             self.PopHead()
             return
-        if pos == self.count - 1:
-            self.PopTail()
-            return
-        tracer = self.head
-        while(pos > 1):  # Move tracer to next pos - 1 times, so it points toward the node beforce target
-            tracer = tracer.next
-            pos = pos - 1
-        tracer.next = tracer.next.next
-        self.count = self.count - 1
-        return
 
     def clear(self):
         self.head = None
         self.tail = None
         self.count = 0
 
-    def getHead(self):
-        if self.count == 0:
-            return
-        return self.head.val
 
-    def getTail(self):
-        if self.count == 0:
-            return
-        return self.tail.val
-
-    def getPos(self, pos):
-        # return value of node in certain position
-        if self.count == 0:
-            return
-        if pos > self.count - 1:
-            return
-        tracer = self.head
-        while(pos > 0):
-            tracer = tracer.next
-            pos = pos - 1
-        return tracer.val
+"""
+temp = Double_Linked_List()
+temp.AddHead(10)
+temp.AddTail(20)
+temp.AddHead(30)
+temp.AddTail(40)
+temp.PopTail()
+print(temp.OutputList())
+"""
