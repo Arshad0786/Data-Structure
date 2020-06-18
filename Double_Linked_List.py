@@ -76,7 +76,7 @@ class Double_Linked_List():
         before.next = node #link between inserted node and previous node
         node.prev = before
         node.next = after #link between inserted node and next node
-        after.prev = before
+        after.prev = node
         self.count = self.count + 1
 
     def PopTail(self):
@@ -112,25 +112,46 @@ class Double_Linked_List():
     def RemovePos(self, pos):
         if pos > self.count:
             return
-        if pos == self.count:
+        if pos == self.count -1 :
             self.PopTail()
             return
         if pos == 0:
             self.PopHead()
             return
+        tracer = self.head
+        while(pos > 1): # move tracer pos - 1 times
+            tracer = tracer.next
+            pos = pos - 1 
+        before = tracer
+        after = tracer.next.next
+        before.next = after
+        after.prev = before
+        self.count = self.count - 1
 
     def clear(self):
         self.head = None
         self.tail = None
         self.count = 0
 
+    def getHead(self):
+        if self.count == 0:
+            return
+        return self.head.val
+    
+    def getTail(self):
+        if self.count == 0:
+            return
+        return self.tail.val
+    
+    def getPos(self, pos):
+        # return value of node in certain position
+        if self.count == 0:
+            return
+        if pos > self.count - 1:
+            return
+        tracer = self.head
+        while(pos > 0):
+            tracer = tracer.next
+            pos = pos - 1
+        return tracer.val
 
-"""
-temp = Double_Linked_List()
-temp.AddHead(10)
-temp.AddTail(20)
-temp.AddHead(30)
-temp.AddTail(40)
-temp.PopTail()
-print(temp.OutputList())
-"""

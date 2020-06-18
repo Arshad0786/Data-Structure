@@ -135,8 +135,8 @@ class LinkedListTest(unittest.TestCase):
         # -----------------------------------------------
         # Make sure clear() properly reset the list
         temp.AddHead(10)
-        temp.AddHead(10)
-        temp.AddHead(10)
+        temp.AddHead(20)
+        temp.AddHead(30)
         self.assertEqual(temp.OutputList(), [10, 10, 10])
 
     def test_getHead(self):

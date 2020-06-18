@@ -18,7 +18,7 @@ class DoubleLinkedListTest(unittest.TestCase):
         result = list(range(100))[::-1]
         self.assertEqual(temp.OutputList(), result)
         self.assertEqual(temp.reverseOutputList(), result[::-1])
-    
+
     def test_AddPos(self):
         temp = Double_Linked_List()
         temp.AddTail(10)
@@ -29,17 +29,20 @@ class DoubleLinkedListTest(unittest.TestCase):
         temp.AddPos(0, 5)  # head
         temp.AddPos(6, 100)  # tail
         temp.AddPos(3, 25)  # middle
-        result = [5, 10, 20, 25, 30, 40, 50, 100]
+        temp.AddPos(5, 35)
+        temp.AddPos(7, 45)
+        result = [5, 10, 20, 25, 30, 35, 40, 45, 50, 100]
         self.assertEqual(temp.OutputList(), result)
         self.assertEqual(temp.reverseOutputList(), result[::-1])
         # --------------------------------------------------
         # Position Out of bound test
-        temp.AddPos(10, 200)
         temp.AddPos(15, 250)
         temp.AddPos(20, 300)
         temp.AddPos(25, 350)
         temp.AddPos(30, 400)
         temp.AddPos(35, 450)
+        temp.AddPos(40, 500)
+        temp.AddPos(45, 550)
         self.assertEqual(temp.OutputList(), result)
         self.assertEqual(temp.reverseOutputList(), result[::-1])
         temp.clear()
@@ -61,7 +64,6 @@ class DoubleLinkedListTest(unittest.TestCase):
         self.assertEqual(temp.OutputList(), result)
         self.assertEqual(temp.reverseOutputList(), result[::-1])
         temp.clear()
-    
 
     def test_PopTail(self):
         temp = Double_Linked_List()
@@ -88,7 +90,7 @@ class DoubleLinkedListTest(unittest.TestCase):
         # ----------------------------------------------------
         # Make Sure the list will be empty when all nodes are popped
         self.assertEqual(temp.OutputList(), [])
-    """
+
     def test_RemovePos(self):
         temp = Double_Linked_List()
 
@@ -126,7 +128,7 @@ class DoubleLinkedListTest(unittest.TestCase):
         temp.RemovePos(50)
         temp.RemovePos(100)
         self.assertEqual(temp.OutputList(), result)
-    """
+
     def test_clear(self):
         temp = Double_Linked_List()
         for i in range(100):
@@ -140,13 +142,12 @@ class DoubleLinkedListTest(unittest.TestCase):
         self.assertEqual(temp.OutputList(), [])
         # -----------------------------------------------
         # Make sure clear() properly reset the list
-        temp.AddHead(10)
-        temp.AddHead(20)
-        temp.AddHead(30)
-        result = [10,20,30]
+        for i in range(10):
+            temp.AddTail(i)
+        result = list(range(10))
         self.assertEqual(temp.OutputList(), result)
         self.assertEqual(temp.reverseOutputList(), result[::-1])
-    """
+    
     def test_getHead(self):
         temp = Double_Linked_List()
         for i in range(100):
@@ -194,6 +195,7 @@ class DoubleLinkedListTest(unittest.TestCase):
         temp.AddTail(20)
         self.assertEqual(temp.OutputList(), [10, 20])
         self.assertEqual(temp.getTail(), 20)
+    
 
     def test_getPos(self):
         temp = Double_Linked_List()
@@ -227,7 +229,8 @@ class DoubleLinkedListTest(unittest.TestCase):
             temp.AddHead(i)
         for i in range(10, 100):
             self.assertEqual(temp.getPos(i), None)
-    """
+    
+
 
 if __name__ == "__main__":
     unittest.main()
