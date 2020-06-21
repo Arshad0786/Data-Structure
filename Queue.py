@@ -1,7 +1,8 @@
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0, next=None, prev=None):
         self.val = val
         self.next = next
+        self.prev = None
 
 
 class Queue:
@@ -29,6 +30,7 @@ class Queue:
             self.count = self.count + 1
             return
         node.next = self.head
+        self.head.prev = node
         self.head = node
         self.count = self.count + 1
         return
@@ -44,10 +46,7 @@ class Queue:
             self.count = self.count - 1
             return output
         output = self.tail.val
-        tracer = self.head
-        while(tracer.next != self.tail):
-            tracer = tracer.next
-        self.tail = tracer
+        self.tail = self.tail.prev
         self.tail.next = None
         self.count = self.count - 1
         return output
