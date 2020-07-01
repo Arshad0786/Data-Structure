@@ -3,6 +3,7 @@ class StackNode():
         self.val = val
         self.next = next
 
+
 class Stack():
     def __init__(self):
         self.head = None
@@ -13,13 +14,12 @@ class Stack():
             return []
         tracer = self.head
         output = []
-        while tracer.next != None :
+        while tracer.next != None:
             output.append(tracer.val)
             tracer = tracer.next
         output.append(tracer.val)
         return output
-        
-    
+
     def push(self, val):
         node = StackNode(val)
         if self.count == 0:
@@ -30,7 +30,7 @@ class Stack():
         self.head = node
         self.count = self.count + 1
         return
-    
+
     def pop(self):
         if self.count == 0:
             return
@@ -43,15 +43,8 @@ class Stack():
         self.head = self.head.next
         self.count = self.count - 1
         return output
-        
-    
-temp = Stack()
-temp.push(10)
-temp.push(20)
-temp.push(30)
-temp.push(40)
-temp.push(50)
-for i in range(5):
-    print("Pop:", temp.pop())
-print("----------------")
-print(temp.outputStack())
+
+    def clear(self):
+        self.head = None
+        self.count = 0
+        return

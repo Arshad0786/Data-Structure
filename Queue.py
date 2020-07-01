@@ -1,4 +1,4 @@
-class ListNode:
+class QueueNode:
     def __init__(self, val=0, next=None, prev=None):
         self.val = val
         self.next = next
@@ -23,7 +23,7 @@ class Queue:
         return output
 
     def push(self, val):
-        node = ListNode(val)
+        node = QueueNode(val)
         if self.count == 0:
             self.head = node
             self.tail = node

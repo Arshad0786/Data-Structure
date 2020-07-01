@@ -1,5 +1,5 @@
 import unittest
-from Linked_List import ListNode, Linked_List
+from Linked_List import Linked_List
 
 
 class LinkedListTest(unittest.TestCase):
@@ -137,7 +137,7 @@ class LinkedListTest(unittest.TestCase):
         temp.AddHead(10)
         temp.AddHead(20)
         temp.AddHead(30)
-        self.assertEqual(temp.OutputList(), [10, 10, 10])
+        self.assertEqual(temp.OutputList(), [30, 20, 10])
 
     def test_getHead(self):
         temp = Linked_List()

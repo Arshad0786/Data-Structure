@@ -1,5 +1,5 @@
 import unittest
-from Queue import ListNode, Queue
+from Queue import Queue
 
 
 class QueueTest(unittest.TestCase):
@@ -26,7 +26,10 @@ class QueueTest(unittest.TestCase):
         self.assertEqual(temp.outputQueue(),list(range(100))[::-1])
         temp.clear()
         self.assertEqual(temp.outputQueue(),[])
-        
+        for i in range(100):
+            temp.push(i)
+        self.assertEqual(temp.outputQueue(),list(range(100))[::-1])
+              
 
 
 if __name__ == "__main__":
